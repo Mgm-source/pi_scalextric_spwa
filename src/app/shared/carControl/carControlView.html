@@ -3,6 +3,7 @@
 <div>
     <input type="range" min="0" max="100" value="0" orient="vertical" class="throttle" ng-model="carControlView.throttle">
     <input type="button" value="Stop" ng-click="carControlView.stop()"></input>
+    <h3 class="light">Sensor: {{carControlView.sensorValue}}</h3>
 </div>
 <span ng-bind="carControlView.actualThrottle"></span>
 <button ng-repeat="resource in carControlView.resources track by $index" ng-model="carControlView.resources[$index]" ng-click="carControlView.fireSpecialWeapon(resource.id)">{{resource.name}}</button>

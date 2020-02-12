@@ -16,6 +16,7 @@ function CarControlViewCtrl($scope, $state, $stateParams, mqttService, brokerDet
     var channel = $stateParams.channel;
 
     const DEFAULT_THROTTLE = 0;
+    const DEFAULT_SENSOR = 1;
 
     /*
      throttle : is the throttle percentage the user is demanding.
@@ -23,6 +24,7 @@ function CarControlViewCtrl($scope, $state, $stateParams, mqttService, brokerDet
      resources : is the array holding the available special weapons
     */
     vm.throttle = DEFAULT_THROTTLE;
+    vm.sensorValue = DEFAULT_SENSOR;
     vm.actualThrottle = DEFAULT_THROTTLE;
     vm.resources = [];
 
@@ -40,13 +42,16 @@ function CarControlViewCtrl($scope, $state, $stateParams, mqttService, brokerDet
 
     vm.stop = stop;
     vm.fireSpecialWeapon = fireSpecialWeapon;
-
+    
 
 
 
     var throttleTopic = `${brokerDetails.UUID}/control/${channel}/throttle`;
     var getResourcesTopic = `${brokerDetails.UUID}/resources`;
     var resourceStateTopic = `${brokerDetails.UUID}/control/{channel}/{resourceId}/state`;
+    var sensorTopic = `${brokerDetails.UUID}/sensors/3`;
+
+    mqttService.subscribe(sensorTopic);
 
     //subscribe to channel throttle
     mqttService.subscribe(throttleTopic);
@@ -106,7 +111,7 @@ function CarControlViewCtrl($scope, $state, $stateParams, mqttService, brokerDet
         //check the correct topic
         if (message.topic === throttleTopic) {
             var throttle  = JSON.parse(message.payloadString);
-
+           // $scope.sensorValue = throttle;
             //filter out any set throttle messages
             if(throttle.hasOwnProperty("throttle")){
                 vm.actualThrottle = throttle.throttle;
@@ -118,6 +123,10 @@ function CarControlViewCtrl($scope, $state, $stateParams, mqttService, brokerDet
                 mqttService.subscribe(resourceStateTopic.replace(/\{resourceId\}/, resource.id));
             });
             $scope.$apply();
+        } else if (message.topic == sensorTopic) {
+            var sensor = JSON.parse(message.payloadString);
+            vm.sensorValue = sensor;
+            
         }
 
         if (vm.resources !== undefined) {
