@@ -1,6 +1,6 @@
-angular.module('app').controller('CarControlViewCtrl', CarControlViewCtrl);
+angular.module('app').controller('raceStateViewCtrl', raceStateViewCtrl);
 
-CarControlViewCtrl.$inject = [
+raceStateViewCtrl.$inject = [
     '$scope',
     '$state',
     '$stateParams',
@@ -8,7 +8,7 @@ CarControlViewCtrl.$inject = [
     'brokerDetails'
 ];
 
-function CarControlViewCtrl($scope, $state, $stateParams, mqttService, brokerDetails) {
+function raceStateViewCtrl($scope, $state, $stateParams, mqttService, brokerDetails) {
     var vm = this;
 
     var changed = false;

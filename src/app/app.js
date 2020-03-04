@@ -38,7 +38,7 @@ function config($stateProvider, $urlRouterProvider) {
             }
 
         },
-        templateUrl: 'app/shared/index/indexView.html',
+        templateUrl: 'app/States/index/indexView.html',
         controller: 'IndexViewCtrl',
         controllerAs: 'indexView',
         resolve: {
@@ -61,9 +61,9 @@ function config($stateProvider, $urlRouterProvider) {
     var carControlState = {
         name: 'carControl',
         url: '/control',
-        templateUrl: 'app/shared/carControl/carControlView.html',
-        controller: 'CarControlViewCtrl',
-        controllerAs: 'carControlView',
+        templateUrl: 'app/States/raceState/raceStateView.html',
+        controller: 'raceStateViewCtrl',
+        controllerAs: 'raceStateView',
         params: {
             channel: null,
             ip_address: null

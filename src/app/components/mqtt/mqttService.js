@@ -23,7 +23,7 @@ function mqttService() {
     var client = null;
 
     // Initialize mqtt client, this must be the done before any other actions
-    function initialize(hostname, port, clientId = "") {
+    function initialize(hostname, port, clientId = "sc1") {
         if (!hostname) { throw new Error("Invalid hostname") }
         if (!port) { throw new Error("Invalid port")}
         
@@ -72,7 +72,7 @@ function mqttService() {
             client.disconnect();
         }
         
-    }
+    };
 
     //called when connection is lost
     function onConnectionLost(callback) {
@@ -80,6 +80,12 @@ function mqttService() {
         if (callback && typeof callback !== 'function') { throw new Error("Callback must be a function")}
         
         client.onConnectionLost = callback;
+       // $timeout(function(
+
+        //){
+        //    disconnect;
+        //},1000
+        //)
     }
 
     // called when a message arrives
