@@ -4,10 +4,11 @@ IndexViewCtrl.$inject = [
     '$rootScope',
     '$state',
     'mqttService',
-    'brokerDetails'
+    'brokerDetails',
+    '$timeout'
 ];
 
-function IndexViewCtrl($rootScope, $state, mqttService, brokerDetails) {
+function IndexViewCtrl($rootScope, $state, mqttService, brokerDetails,$timeout) {
     var vm = this;
 
     //Initialises the range of channels that can be selected and the selected channel
@@ -31,7 +32,14 @@ function IndexViewCtrl($rootScope, $state, mqttService, brokerDetails) {
         } else {
             mqttService.initialize(brokerDetails.HOST, brokerDetails.PORT);
             mqttService.onConnectionLost(function () {
-                console.error("connection lost");
+                
+                    $timeout(function()
+                    {
+                        mqttService.connect();
+                    },1000
+                   
+       )
+       console.error("connection lost");
             });
 
 

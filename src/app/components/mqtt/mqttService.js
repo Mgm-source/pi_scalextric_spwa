@@ -80,12 +80,7 @@ function mqttService() {
         if (callback && typeof callback !== 'function') { throw new Error("Callback must be a function")}
         
         client.onConnectionLost = callback;
-       // $timeout(function(
 
-        //){
-        //    disconnect;
-        //},1000
-        //)
     }
 
     // called when a message arrives

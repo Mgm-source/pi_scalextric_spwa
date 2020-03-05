@@ -142,7 +142,7 @@ function raceStateViewCtrl($scope, $state, $stateParams, mqttService, brokerDeta
     /*
      When users changes car throttle a change request is sent to server. 
     */
-    $scope.$watch("carControlView.throttle", function (newThrottle, oldThrottle) {
+    $scope.$watch("raceStateView.throttle", function (newThrottle, oldThrottle) {
         if (newThrottle != oldThrottle) {
             var payload = {
                 set : newThrottle
