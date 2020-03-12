@@ -5,10 +5,11 @@ raceStateViewCtrl.$inject = [
     '$state',
     '$stateParams',
     'mqttService',
-    'brokerDetails'
+    'brokerDetails',
+	'$timeout'
 ];
 
-function raceStateViewCtrl($scope, $state, $stateParams, mqttService, brokerDetails) {
+function raceStateViewCtrl($scope, $state, $stateParams, mqttService, brokerDetails,$timeout) {
     var vm = this;
 
     var changed = false;
@@ -17,6 +18,7 @@ function raceStateViewCtrl($scope, $state, $stateParams, mqttService, brokerDeta
 
     const DEFAULT_THROTTLE = 0;
     const DEFAULT_SENSOR = 1;
+	const WEAPON_DELAY_MS = 5000;
 
     /*
      throttle : is the throttle percentage the user is demanding.
@@ -40,7 +42,15 @@ function raceStateViewCtrl($scope, $state, $stateParams, mqttService, brokerDeta
     //Used to show error message when there is a server error.
     vm.throttleError = false;
 
-    vm.stop = stop;
+    vm.stop = function weapondisable(){
+            $timeout(function ()
+                {
+                    stop;
+    
+                },WEAPON_DELAY_MS); 
+                console.log("WEAPONS DISABLED FOR 5 SECONDS")
+            }
+			
     vm.fireSpecialWeapon = fireSpecialWeapon;
     
 
